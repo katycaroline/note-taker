@@ -2,8 +2,8 @@ const router = require("express").Router();
 const fs = require("fs");
 const id = require("uniqid");
 
-router.get("/notes", (req, res) => {
-    fs.readFile("'db.json'", "utf-8", (err, data) => {
+router.get("/api/notes", (req, res) => {
+    fs.readFile("db.json", "utf-8", (err, data) => {
         if (err) {
             throw err;
         } else {
@@ -12,7 +12,7 @@ router.get("/notes", (req, res) => {
     })
 });
 
-router.post("/notes", (req, res) => {
+router.post("/api/notes", (req, res) => {
     const noteDb = JSON.parse(fs.readFileSync("db.json"));
     const newNote = req.body;
     newNote.id = id();
