@@ -1,16 +1,19 @@
 const express = require("express");
-const fs = require("fs");
-const api = require("./public/assets/js/index.js");
+const noteRoute = require("./routes/notes-routes.js");
+const indexRoute = require("./routes/index-routes.js");
 
 // Creates an instance of express and makes a port for the application
-var app = express();
-var PORT = process.env.PORT || 3001
+const app = express();
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", api);
 
-app.listen(PORT, function() {
+app.use(express.static("public"));
+app.use(indexRoute);
+app.use(noteRoute);
+
+app.listen(PORT, () => {
     console.log(`App listening at PORT ${PORT}`);
 });
